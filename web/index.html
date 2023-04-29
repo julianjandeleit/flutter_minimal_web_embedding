@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+
+  <!-- This script adds the flutter initialization JS code -->
+  <script src="flutter.js" defer></script>
+
+  <style>
+    /** The style for the DIV where flutter will be rendered, and the CSS fx */
+#flutter_target {
+  border: 1px solid #aaa;
+  width: 320px;
+  height: 480px;
+  border-radius: 0px;
+  transition: all 150ms ease-in;
+}
+
+.center {
+  margin: auto;
+  width: 50%;
+}
+  </style>
+</head>
+
+<body>
+  <section class="contents">
+    <!--This is the div which contains the flutter app-->
+    <div style="height: 100vh; background: red;">
+      section before
+    </div>
+    <div>
+      <div id="flutter_target" class="center"></div>
+    </div>
+    <div style="height: 100vh; background: orange;">
+      section after
+    </div>
+  </section>
+
+  <script>
+    window.addEventListener("load", function (ev) {
+      // Embed flutter into div#flutter_target
+      let target = document.querySelector("#flutter_target");
+      _flutter.loader.loadEntrypoint({
+        onEntrypointLoaded: async function (engineInitializer) {
+          let appRunner = await engineInitializer.initializeEngine({
+            hostElement: target,
+          });
+          await appRunner.runApp();
+        },
+      });
+    });
+  </script>
+</body>
+
+</html>
